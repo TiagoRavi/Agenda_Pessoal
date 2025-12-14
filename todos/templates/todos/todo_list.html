@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Lista de Tarefas
+{% endblock page_title %}
+
+{% block content %}
+<h1>Lista de Tarefas</h1>
+
+<a href="{% url 'todo_create' %}" class="btn btn-success mb-3">
+    + Nova tarefa
+</a>
+
+{% if todo_list %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Criado em</th>
+            <th>Entrega</th>
+            <th>Finalizado em</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in todo_list %}
+        <tr class="{% if todo.finished_at %}table-success{% endif %}">
+            <td>{{ todo.pk }}</td>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.created_at|date:"d/m/Y H:i" }}</td>
+            <td>{{ todo.deadline|date:"d/m/Y" }}</td>
+            <td>{{ todo.finished_at|date:"d/m/Y H:i"|default:"-" }}</td>
+            <td>
+                {% if not todo.finished_at %}
+                    <a
+                        href="{% url 'todo_update' pk=todo.pk %}"
+                        class="btn btn-secondary btn-sm"
+                    >
+                        Editar
+                    </a>
+
+                    <a
+                        href="{% url 'todo_complete' pk=todo.pk %}"
+                        class="btn btn-primary btn-sm"
+                    >
+                        Concluir
+                    </a>
+                {% else %}
+                    <span class="badge bg-success">Concluída</span>
+                {% endif %}
+
+                <a
+                    href="{% url 'todo_delete' pk=todo.pk %}"
+                    class="btn btn-danger btn-sm"
+                >
+                    Excluir
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">Não há tarefas cadastradas.</p>
+{% endif %}
+{% endblock content %}

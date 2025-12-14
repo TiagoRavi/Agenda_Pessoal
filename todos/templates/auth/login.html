@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Login
+{% endblock page_title %}
+
+{% block content %}
+<h1>Login</h1>
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Usuário</label>
+        <input
+            type="text"
+            name="username"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <input
+            type="password"
+            name="password"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Entrar
+    </button>
+</form>
+{% endblock content %}

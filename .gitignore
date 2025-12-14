@@ -1,0 +1,53 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# ======================
+# Virtualenv
+# ======================
+.venv/
+venv/
+env/
+
+# ======================
+# Django
+# ======================
+db.sqlite3
+staticfiles/
+media/
+
+# ======================
+# Migrations (opcional)
+# Se quiser versionar migrations, comente essas linhas
+# ======================
+# todos/migrations/*.py
+# !todos/migrations/__init__.py
+
+# ======================
+# Environment variables
+# ======================
+.env
+
+# ======================
+# IDEs / Editors
+# ======================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ======================
+# OS
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Logs
+# ======================
+*.log

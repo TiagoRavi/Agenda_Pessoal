@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+{{ title }}
+{% endblock page_title %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="id_title" class="form-label">Título</label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="text-danger">
+                {{ form.title.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_deadline" class="form-label">Data de entrega</label>
+        {{ form.deadline }}
+        {% if form.deadline.errors %}
+            <div class="text-danger">
+                {{ form.deadline.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if "Editar" in title %}
+            Salvar alterações
+        {% else %}
+            Criar tarefa
+        {% endif %}
+    </button>
+
+    <a href="{% url 'todo_list' %}" class="btn btn-secondary">
+        Cancelar
+    </a>
+</form>
+{% endblock content %}
