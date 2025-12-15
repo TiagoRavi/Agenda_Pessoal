@@ -129,3 +129,24 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+CREATE_SUPERUSER = os.getenv("CREATE_SUPERUSER") == "True"
+SUPERUSER_USERNAME = os.getenv("SUPERUSER_USERNAME")
+SUPERUSER_EMAIL = os.getenv("SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("SUPERUSER_PASSWORD")
+
+if CREATE_SUPERUSER:
+    try:
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+
+        if not User.objects.filter(username=SUPERUSER_USERNAME).exists():
+            User.objects.create_superuser(
+                username=SUPERUSER_USERNAME,
+                email=SUPERUSER_EMAIL,
+                password=SUPERUSER_PASSWORD,
+            )
+            print("✅ Superusuário criado com sucesso")
+        else:
+            print("ℹ️ Superusuário já existe")
+    except Exception as e:
+        print("⚠️ Erro ao criar superusuário:", e)
